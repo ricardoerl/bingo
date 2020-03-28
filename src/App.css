@@ -1,38 +1,96 @@
-.App {
-  text-align: center;
+/* 
+  Code from Grid by Example:
+  Header, footer, centre panel containing as many items as fit
+  https://gridbyexample.com/patterns/header-asmany-footer/
+*/
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Open Sans', 'sans-serif';
+  background-color: #fff;
+  color: #444;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1,
+p {
+  margin: 0 0 1em 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+}
+
+/* no grid support? */
+
+.wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  max-width: 42em;
+}
+
+.wrapper {
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  align-items: stretch;
+}
+
+.card {
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 10px;
+  position: relative;
+}
+.card__label {
+  text-align: center;
+  font-size: 4vw;
+}
+.card--marked {
+  /* background-color: #000;
+  color: #fff; */
+}
+.card--marked::before,
+.card--marked::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 1px; /* cross thickness */
+  background-color: black;
+}
+.card--marked::before {
+  transform: rotate(45deg);
 }
 
-.App-link {
-  color: #61dafb;
+.card--marked::after {
+  transform: rotate(-45deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 475px) {
+  .wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
-  to {
-    transform: rotate(360deg);
+  .card__label {
+    text-align: center;
+    font-size: 2em;
+  }
+}
+
+/* We need to set the margin used on flex items to 0 as we have gaps in grid.  */
+
+@supports (display: grid) {
+  .wrapper > * {
+    margin: 0;
   }
 }
